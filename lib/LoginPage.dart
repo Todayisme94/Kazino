@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'LoginWithEmail.dart';
 import 'PageWellcome.dart';
 import 'dummy_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,6 +24,8 @@ class LoginPage extends StatefulWidget{
 
 class _LoginPageState extends State<LoginPage> {
   
+  String? _email, _password;
+  final auth = FirebaseAuth.instance;
   final username = TextEditingController();
   final password = TextEditingController();
   DummyData dummyData = DummyData();
@@ -74,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 SizedBox(height:50),
                 Text(
-                  'INI LOGO',
+                  'Firebase Login',
                   style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -94,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       SizedBox(height: 30),
                       Text(
-                        'LOGIN',
+                        ' ',
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -127,6 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                         width: 250,
                         child: TextField(
+                          obscureText: true,
                           controller: password,
                           decoration: InputDecoration(
                             hintText: 'Password',
@@ -137,6 +142,8 @@ class _LoginPageState extends State<LoginPage> {
                           )
                         )
                       ),
+
+                      // .......................Forgot Password Button.....................
                       Padding(
                         padding: EdgeInsets.fromLTRB(20, 20, 40, 20),
                         child: Row(
@@ -152,9 +159,9 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                         ),
-                      SizedBox(height: 20),
+                        SizedBox(height: 15),
 
-                      // .......................Ontap Button.....................
+                      // .......................Login Button.....................
                       GestureDetector(
                         onTap: () async {
                           if(isLogin == false){
@@ -195,7 +202,49 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           )
                         )
-                      )
+                      ),
+
+                      SizedBox(height: 20),
+
+                      // .......................Login Google Button.....................
+                      GestureDetector(
+                        onTap: () async {
+                          //Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Login With Google',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color.fromARGB(255, 112, 112, 112),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(height:10),
+
+                      // .......................Login Email Button.....................
+                      GestureDetector(
+                        onTap: () async {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => LogWithEmail()));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Login With Email',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color.fromARGB(255, 112, 112, 112),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   )
                 )
@@ -207,4 +256,3 @@ class _LoginPageState extends State<LoginPage> {
       );
   }
 }
-
